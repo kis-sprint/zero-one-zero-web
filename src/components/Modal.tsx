@@ -12,7 +12,7 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
   const [password, setPassword] = useState<string>('');
 
   const onEnter = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && password) {
       submitHandler();
     }
   };
@@ -26,6 +26,7 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
         // console.log('close!')
         break;
     }
+    alert('submit!');
   };
 
   return (
