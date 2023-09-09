@@ -1,0 +1,92 @@
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import { Fragment, useState } from 'react';
+
+type Props = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  condition?: string; // edit, close
+};
+
+const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
+  const [password, setPassword] = useState<string>('');
+
+  const onEnter = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      submitHandler();
+    }
+  };
+
+  const submitHandler = () => {
+    switch (condition) {
+      case 'edit':
+        // console.log('to edit')
+        break;
+      case 'close':
+        // console.log('close!')
+        break;
+    }
+  };
+
+  return (
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setIsOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-700 opacity-30 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg w-[350px] h-[230px]">
+                <div className="w-full flex justify-end pt-4 pr-4">
+                  <XMarkIcon className="w-6 cursor-pointer" onClick={() => setIsOpen(false)} />
+                </div>
+                <div className="bg-white px-6 pb-4 w-full mt-[-10px]">
+                  <div className="mt-3 sm:ml-4 sm:mt-0 text-left">
+                    <Dialog.Title className="text-xl font-semibold text-gray-900">비밀번호 확인</Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-md text-gray-500">비밀번호를 입력해주세요.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full flex flex-col items-center mt-1.5 px-10">
+                  <input
+                    className="h-9 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
+                    type="password"
+                    onKeyDown={onEnter}
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                  <div className="w-full flex justify-end mt-6">
+                    <button onClick={submitHandler} className="bg-blue-500 px-7 py-1.5 rounded-sm text-white">
+                      확인
+                    </button>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+};
+
+export default Modal;
