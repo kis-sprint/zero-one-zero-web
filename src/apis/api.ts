@@ -1,8 +1,22 @@
 import axios from 'axios';
-export interface User {
-  title: string;
-  votes: Array<string>;
+export interface VoteInfo {
+  voteId: number;
+  voteCreator: string;
+  voteTitle: string;
+  voteDescription: string;
+  selectList: SelectInfo[];
 }
+
+export type SelectInfo = {
+  voteId: number;
+  voteLabel: string;
+};
+
+export type ParticipantInfo = {
+  participantId: number;
+  participantName: string;
+  isSelected: boolean;
+};
 
 interface Vote {
   option: string;
@@ -15,7 +29,7 @@ export interface Info {
   votes: Array<Vote>;
 }
 
-export const getVoteListApi = async (): Promise<User> => {
+export const getVoteListApi = async (): Promise<VoteInfo & ParticipantInfo[]> => {
   try {
     const { data } = await axios.get('/dummy/VoteListInfo.json');
     return data;

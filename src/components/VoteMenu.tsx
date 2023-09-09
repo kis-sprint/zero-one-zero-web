@@ -1,11 +1,17 @@
-export default function VoteMenu() {
+type VoteMenuProps = {
+  share: boolean;
+};
+
+export default function VoteMenu({ share }: VoteMenuProps) {
   return (
-    <div className="flex items-center justify-between">
-      <div>
-        <button>투표 수정 </button>
-        <button className="ml-2">투표 종료</button>
+    <div className="w-full flex">
+      <div className="flex items-center justify-between" style={{ width: '23rem' }}>
+        <div>
+          <button>투표 수정 </button>
+          <button className="ml-2">투표 종료</button>
+        </div>
+        <button className={`${!share && 'hidden'}`}>공유하기</button>
       </div>
-      <button>공유하기</button>
     </div>
   );
 }
