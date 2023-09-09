@@ -54,30 +54,32 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg w-[350px] h-[230px]">
-                <div className="w-full flex justify-end pt-4 pr-4">
-                  <XMarkIcon className="w-6 cursor-pointer" onClick={() => setIsOpen(false)} />
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg w-[330px] h-[220px]">
+                <div className="w-full flex justify-end pt-3 pr-3">
+                  <XMarkIcon className="w-5 cursor-pointer" onClick={() => setIsOpen(false)} />
                 </div>
-                <div className="bg-white px-6 pb-4 w-full mt-[-10px]">
-                  <div className="mt-3 sm:ml-4 sm:mt-0 text-left">
-                    <Dialog.Title className="text-xl font-semibold text-gray-900">비밀번호 확인</Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-md text-gray-500">비밀번호를 입력해주세요.</p>
+                <div className="mt-[-2px]">
+                  <div className="bg-white px-6 pb-4 w-full">
+                    <div className="mt-3 sm:ml-4 sm:mt-0 text-left">
+                      <Dialog.Title className="text-xl font-semibold text-gray-900">비밀번호 확인</Dialog.Title>
+                      <div className="mt-2">
+                        <p className="text-md text-gray-500">비밀번호를 입력해주세요.</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="w-full flex flex-col items-center mt-1.5 px-10">
-                  <input
-                    className="h-9 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
-                    type="password"
-                    onKeyDown={onEnter}
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                  />
-                  <div className="w-full flex justify-end mt-6">
-                    <button onClick={submitHandler} className="bg-blue-500 px-7 py-1.5 rounded-sm text-white">
-                      확인
-                    </button>
+                  <div className="w-full flex flex-col items-center mt-1.5 px-10">
+                    <input
+                      className="h-9 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
+                      type="password"
+                      onKeyDown={onEnter}
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                    <div className="w-full flex justify-end mt-5 mr-[-10px]">
+                      <button onClick={submitHandler} className="bg-blue-500 px-6 py-1.5 rounded-sm text-white text-sm">
+                        확인
+                      </button>
+                    </div>
                   </div>
                 </div>
               </Dialog.Panel>
