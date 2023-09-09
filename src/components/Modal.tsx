@@ -67,9 +67,9 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full flex flex-col items-center mt-1.5 px-10">
+                  <div className="w-full flex flex-col items-center mt-1 px-10">
                     <input
-                      className="h-9 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
+                      className="h-10 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
                       type="password"
                       onKeyDown={onEnter}
                       value={password}
