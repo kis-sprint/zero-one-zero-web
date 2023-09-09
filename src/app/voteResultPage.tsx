@@ -1,5 +1,6 @@
 import { getVoteResultListApi } from '@/apis/api';
 import { Info } from '@/apis/api';
+import VoteMenu from '@/components/VoteMenu';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -31,9 +32,9 @@ export default function VoteResultPage() {
         {voteObject?.votes &&
           voteObject?.votes.map((elem, index) => {
             return (
-              <div className="flex" key={index}>
-                <p className="inline">{elem.option}</p>
-                <div>
+              <ul className="flex" key={index}>
+                <li>
+                  <p className="inline">{elem.option}</p>
                   <Image
                     className="bg-white inline"
                     width={24}
@@ -44,18 +45,12 @@ export default function VoteResultPage() {
                   <span className={userAllNumber / 2 < voteUserNumber ? 'visible' : 'invisible'}>
                     {elem.selecteduser}
                   </span>
-                </div>
-              </div>
+                </li>
+              </ul>
             );
           })}
       </div>
-      <footer>
-        <div className="flex items-center justify-center">
-          <button>투표 수정 </button>
-          <button className="ml-2">투표 종료</button>
-        </div>
-        <p>과반수이상 투표수 투표 현황을 공개합니다</p>
-      </footer>
+      <VoteMenu />
     </main>
   );
 }

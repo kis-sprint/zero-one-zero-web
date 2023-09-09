@@ -1,4 +1,5 @@
 import { getVoteListApi } from '@/apis/api';
+import VoteMenu from '@/components/VoteMenu';
 import { useEffect, useState } from 'react';
 type ButtonStates = {
   [index: number]: boolean;
@@ -35,29 +36,25 @@ export default function VoteDetailPage() {
       {votes &&
         votes.map((elem, index) => {
           return (
-            <div key={index}>
-              <label
-                onClick={() => handleClick(index)}
-                className={`${buttonStates[index] ? 'bg-green-500' : 'bg-blue-500'} ${
-                  buttonStates[index]
-                    ? 'hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
-                    : 'hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                }`}
-              >
-                {elem}
-              </label>
-              <input className="hidden bg-white " name={elem} id={elem} type="checkbox" value={elem} />
-            </div>
+            <ul key={index}>
+              <li>
+                <label
+                  onClick={() => handleClick(index)}
+                  className={`${buttonStates[index] ? 'bg-green-500' : 'bg-blue-500'} ${
+                    buttonStates[index]
+                      ? 'hover:bg-green-700 text-white font-bold py-2 px-4 rounded'
+                      : 'hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                  }`}
+                >
+                  {elem}
+                </label>
+                <input className="hidden bg-white " name={elem} id={elem} type="checkbox" value={elem} />
+              </li>
+            </ul>
           );
         })}
       <button>투표</button>
-      <div className="flex items-center justify-between">
-        <div>
-          <button>투표 수정 </button>
-          <button className="ml-2">투표 종료</button>
-        </div>
-        <button>공유하기</button>
-      </div>
+      <VoteMenu />
     </main>
   );
 }
