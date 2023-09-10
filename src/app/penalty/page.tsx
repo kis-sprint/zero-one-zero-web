@@ -11,6 +11,7 @@ export default function Penalty() {
   useEffect(() => {
     setDate(new Date().toLocaleDateString());
     const getData = async () => {
+      // @todo : 서버와의 연결
       //const { data } = await axios.get('url');
       //setName(data.name);
     };
@@ -37,7 +38,7 @@ export default function Penalty() {
     }
   };
   return (
-    <div className=" relative w-screen flex justify-center h-screen flex-col items-center">
+    <div className="relative h-screen text-xs">
       <div
         className="bg-black flex justify-center mt-4 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
         style={{ top: '7%' }}
@@ -46,29 +47,35 @@ export default function Penalty() {
           캡쳐하기
         </button>
       </div>
-      <div ref={captureRef} className="w-1/2 mx-auto border-black border relative h-screen">
-        <Image fill sizes={'100'} className="w-full align-middle" src="/image/appointment.png" alt="Your description" />
-        <div
-          className="text-black p-10 text-center absolute  left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          style={{ top: '40%' }}
-        >
-          미참여자 : {name}
-        </div>
-        <div
-          className="text-black p-10 text-center absolute  left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          style={{ top: '50%' }}
-        >
-          위 사람은 투표에 미참여하였으므로
-          <br /> 이 상장을 드립니다.
-        </div>
-        <div className="text-black p-10  text-center absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          임명장
-        </div>
-        <div
-          className="text-black p-10  text-center absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
-          style={{ top: `60%` }}
-        >
-          {date}
+      <div className="flex h-full justify-center items-center">
+        <div ref={captureRef} className="relative mx-auto border-black border">
+          <Image src="/image/appointment.jpg" alt="Your description" width="320" height="423" />
+          <div className="absolute inset-0">
+            <div
+              className="text-black p-10 text-center absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              style={{ top: '40%' }}
+            >
+              미참여자 : {name}
+            </div>
+            <div
+              className="text-black text-center absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              style={{ top: '55%' }}
+            >
+              위 사람은 투표에 미참여
+              <br />
+              하였으므로
+              <br /> 이 상장을 드립니다.
+            </div>
+            <div className="text-black  text-center absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              상장
+            </div>
+            <div
+              className="text-black p-10  text-center absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 "
+              style={{ top: `80%` }}
+            >
+              {date}
+            </div>
+          </div>
         </div>
       </div>
     </div>
