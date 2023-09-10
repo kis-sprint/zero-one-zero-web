@@ -5,6 +5,10 @@ import VoteMenu from '@/components/VoteMenu';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(' ');
+}
+
 export default function VoteResultPage() {
   const [voteObject, setVoteObject] = useState<Info>();
 
@@ -26,25 +30,30 @@ export default function VoteResultPage() {
   }, []);
 
   return (
-    <main className="h-48 flex flex-col justify-between items-center h-screen m-10 mt-10 py-10 bg-yellow-400">
+    <main className="relative h-48 flex flex-col h-screen justify-evenly m-10 my-10 py-10 px-8">
       <div>
         <div className="w-full">
-          <h1 className="bg-gray-500 text-2xl text-center mb-1 rounded-md py-4">{voteObject?.title}</h1>
+          <h1 className=" text-2xl text-center mb-1 rounded-md py-4">{voteObject?.title}</h1>
           <div className="flex justify-end mb-6">
-            <Image className=" inline" width={24} height={24} src="/image/icon-user-fill.png" alt="person" />
+            <Image className=" inline" width={30} height={30} src="/image/icon-user-fill.png" alt="person" />
             <p>{voteObject?.user}</p>
           </div>
         </div>
-        <ul className="flex flex-col w-full gap-2">
+        <ul className="w-full flex flex-col justify-evenly gap-4">
           {voteObject?.votes &&
-            voteObject?.votes.map((elem, index) => {
+            voteObject?.votes.map((el, idx) => {
               return (
-                <li key={index} className=" h-16 flex justify-between items-center bg-gray-500 rounded-md py-2 px-2">
-                  <p className=" bg-gray-500 inline">{elem.option}</p>
-                  <div>
-                    <Image className=" inline" width={24} height={24} src="/image/icon-user-fill.png" alt="person" />
+                <li
+                  key={idx}
+                  className={classNames(
+                    'relative flex cursor-pointer flex-col border p-4 focus:outline-none md:grid md:grid-cols-2 md:pl-4 md:pr-6',
+                  )}
+                >
+                  <div className="flex flex-1 justify-between">{el.option}</div>
+                  <div className="flex justify-end">
+                    <Image className=" inline" width={30} height={30} src="/image/icon-user-fill.png" alt="person" />
                     <span className={userAllNumber / 2 < voteUserNumber ? 'visible' : 'invisible'}>
-                      {elem.selecteduser}
+                      {el.selecteduser}
                     </span>
                   </div>
                 </li>
@@ -53,8 +62,12 @@ export default function VoteResultPage() {
         </ul>
       </div>
       <div>
-        <p className="mb-4">과반수 이상 투표 현황을 공개합니다.</p>
-        <VoteMenu share={false} />
+        <div className="flex justify-center">
+          <p className="mb-4">과반수 이상일 시 투표 현황을 공개합니다.</p>
+        </div>
+        <div className="flex" style={{ position: 'absolute', bottom: '13%', width: '30rem' }}>
+          <VoteMenu share={true} />
+        </div>
       </div>
     </main>
   );
