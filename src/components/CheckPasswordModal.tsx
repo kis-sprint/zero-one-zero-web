@@ -8,7 +8,7 @@ type Props = {
   condition?: string; // edit, close
 };
 
-const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
+const CheckPasswordModal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
   const [password, setPassword] = useState<string>('');
 
   const onEnter = (event: React.KeyboardEvent) => {
@@ -92,4 +92,4 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
   );
 };
 
-export default Modal;
+export default CheckPasswordModal;
