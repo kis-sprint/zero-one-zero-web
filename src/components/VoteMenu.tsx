@@ -34,6 +34,10 @@ export default function VoteMenu({ share }: VoteMenuProps) {
     setMode('');
   };
 
+  const onShareClose = () => {
+    setShareOpen(false);
+  };
+
   return (
     <>
       <div className="w-full flex">
@@ -56,7 +60,7 @@ export default function VoteMenu({ share }: VoteMenuProps) {
           </button>
         </div>
       </div>
-      {shareOpen && <ShareModal onClose={() => setShareOpen(false)} code={code} />}
+      {shareOpen && <ShareModal onClose={onShareClose} code={code} />}
       {open && <CheckPasswordModal onSubmit={onCheckPasswordSubmit} onClose={onCheckPasswordClose} />}
     </>
   );

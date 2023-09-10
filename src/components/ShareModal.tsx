@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 type ShareData = {
   url?: string;
@@ -9,17 +9,25 @@ type ShareData = {
   files?: File[];
 };
 
-type Props = {
+type ShareModal = {
   onClose: () => void;
   code: number;
 };
 
-const ShareModal: React.FC<Props> = ({ onClose, code }) => {
+export default function ShareModal({ onClose, code }: ShareModal) {
   const copyRef = useRef<HTMLInputElement>(null);
+  const [input, setInput] = useState<string>('');
 
-  const shareHandler = async () => {
+  useEffect(() => {
+    if (code.toString().length > 20) {
+      setInput(code.toString().slice(0, 19) + '...');
+    }
+    setInput(code.toString());
+  }, [code]);
+
+  const onShare = async () => {
     const data: ShareData = {
-      title: `공일공 - 투표를 공유합니다\n\n코드번호 : ${code.toString()}`,
+      title: `공일공 - 투표를 공유합니다\n\n코드번호 : ${input}`,
       url: '',
     };
 
@@ -33,15 +41,7 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
     }
   };
 
-  const sliceText = () => {
-    if (code.toString().length > 30) {
-      return code.toString().slice(0, 29) + '...';
-    } else {
-      return code.toString();
-    }
-  };
-
-  const copyTextUrl = () => {
+  const onCopyText = () => {
     if (copyRef.current) {
       copyRef.current.focus();
       copyRef.current.select();
@@ -88,23 +88,23 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <div onClick={copyTextUrl}>
+                  <div onClick={onCopyText}>
                     <input
                       className="w-full h-9 outline-none rounded-xl border-[1px] border-gray-300 bg-gray-100 p-2.5 flex justify-between text-xs text-blue-500 cursor-pointer"
                       ref={copyRef}
-                      value={sliceText()}
+                      value={input}
                       readOnly
                     />
                   </div>
                   <button
                     className="absolute top-20 mt-[-1.8px] text-xs w-15 h-9 right-6 bg-gray-200 py-[9.3px] px-1 rounded-r-xl text-gray-500 border-[1px] border-gray-300 hover:bg-gray-300 hover:text-gray-600 outline-none"
-                    onClick={copyTextUrl}
+                    onClick={onCopyText}
                   >
                     코드 복사
                   </button>
                 </div>
                 <div className="w-full flex justify-center">
-                  <button className="text-xs" onClick={shareHandler}>
+                  <button className="text-xs" onClick={onShare}>
                     또는 바로 공유하기
                   </button>
                 </div>
@@ -115,6 +115,4 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
       </Dialog>
     </Transition.Root>
   );
-};
-
-export default ShareModal;
+}
