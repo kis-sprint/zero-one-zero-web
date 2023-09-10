@@ -23,7 +23,7 @@ interface Vote {
   selecteduser: string;
 }
 
-export interface Info {
+export interface VoteResultInfo {
   title: string;
   user: string;
   votes: Array<Vote>;
@@ -38,7 +38,7 @@ export const getVoteListApi = async (): Promise<VoteInfo & ParticipantInfo[]> =>
   }
 };
 
-export const getVoteResultListApi = async (): Promise<Info> => {
+export const getVoteResultListApi = async (): Promise<VoteResultInfo> => {
   try {
     const { data } = await axios.get('/dummy/VoteResultInfo.json');
     return data;

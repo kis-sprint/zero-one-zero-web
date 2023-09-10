@@ -2,6 +2,7 @@
 
 import { VoteInfo, getVoteListApi } from '@/apis/api';
 import VoteMenu from '@/components/VoteMenu';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 export default function VoteDetailPage() {
@@ -29,21 +30,14 @@ export default function VoteDetailPage() {
     }
   };
 
-  // 투표 버튼을 누르면 서버에 질문을 한다.
+  // @Todo: 버튼을 누르면 필요한 데이터를 서버로 넘긴다.
   const buttonClickHandler = () => {
     if (selectedVote === null) {
       return;
     }
-    // api요청
-    // 룸아이디, 참가자id, 선택지id
     const { voteId } = voteInfo;
-    // axios.post(url,data);
     console.log(voteId, selectedVote);
   };
-
-  function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
-  }
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -54,10 +48,6 @@ export default function VoteDetailPage() {
       clearTimeout(timeoutId);
     };
   }, []);
-
-  if (Object.keys(voteInfo).length === 0) {
-    return <>Loading...</>;
-  }
 
   return (
     <main className="relative h-48 flex flex-col h-screen justify-evenly m-10 my-10 py-10 px-8 ">
@@ -75,7 +65,7 @@ export default function VoteDetailPage() {
                 <li
                   key={voteId}
                   onClick={() => handleClick(voteId)}
-                  className={classNames(
+                  className={clsx(
                     idx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                     idx === origin.length - 1 ? 'rounded-bl-md rounded-br-md' : '',
                     selectedBtnIndex === voteId ? 'z-10 border-indigo-200 bg-indigo-50' : 'border-gray-200',

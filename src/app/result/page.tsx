@@ -1,19 +1,19 @@
 'use client';
 import { getVoteResultListApi } from '@/apis/api';
-import { Info } from '@/apis/api';
+import { VoteResultInfo } from '@/apis/api';
 import VoteMenu from '@/components/VoteMenu';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function VoteResultPage() {
-  const [voteObject, setVoteObject] = useState<Info>({
+  const [voteObject, setVoteObject] = useState<VoteResultInfo>({
     title: '',
     user: '',
     votes: [],
   });
 
-  // 추후 수정@@@
+  // @Todo : 서버에서 주어지는 데이터 형태를 아직 확정하지 않았으므로, 이렇게 표기하되, 확정되면 바꿀 것
   const userAllNumber = parseInt(voteObject?.user.split('/')[1] || '0');
   const voteUserNumber = parseInt(voteObject?.user.split('/')[0] || '0');
 
