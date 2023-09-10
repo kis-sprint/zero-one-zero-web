@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useRef } from 'react';
 
 type Data = {
   url?: string;
@@ -17,18 +17,12 @@ type Props = {
 const BASE_URL = 'http://localhost:3000/';
 
 const ShareModal: React.FC<Props> = ({ onClose, code }) => {
-  const copyLinkRef = useRef<HTMLInputElement>(null);
-  const [url, setUrl] = useState<string>('');
-
-  useEffect(() => {
-    setUrl(BASE_URL + code.toString());
-  }, []);
+  const copyRef = useRef<HTMLInputElement>(null);
 
   const shareHandler = async () => {
     const data: Data = {
-      title: '공일공 - 투표를 공유합니다',
-      text: '공일공 - 투표를 공유합니다',
-      url: url,
+      title: `공일공 - 투표를 공유합니다\n\n코드번호 : ${code.toString()}`,
+      url: '',
     };
 
     if (navigator.share) {
@@ -42,20 +36,20 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
   };
 
   const sliceText = () => {
-    if (url.length > 30) {
-      return url.slice(0, 29) + '...';
+    if (code.toString().length > 30) {
+      return BASE_URL + code.toString().slice(0, 29) + '...';
     } else {
-      return url;
+      return BASE_URL + code.toString();
     }
   };
 
   const copyTextUrl = () => {
-    if (copyLinkRef.current) {
-      copyLinkRef.current.focus();
-      copyLinkRef.current.select();
+    if (copyRef.current) {
+      copyRef.current.focus();
+      copyRef.current.select();
 
-      navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
-        alert('링크를 복사했습니다.');
+      navigator.clipboard.writeText(copyRef.current.value).then(() => {
+        alert('코드가 클립보드에 저장되었습니다.');
       });
     }
   };
@@ -99,7 +93,7 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
                   <div onClick={copyTextUrl}>
                     <input
                       className="w-full h-9 outline-none rounded-xl border-[1px] border-gray-300 bg-gray-100 p-2.5 flex justify-between text-xs text-blue-500 cursor-pointer"
-                      ref={copyLinkRef}
+                      ref={copyRef}
                       value={sliceText()}
                       readOnly
                     />
@@ -108,7 +102,7 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
                     className="absolute top-20 mt-[-2px] text-xs w-15 h-9 right-6 bg-gray-200 py-[9.3px] px-1 rounded-r-xl text-gray-500 border-[1px] border-gray-300 hover:bg-gray-300 hover:text-gray-600 outline-none"
                     onClick={copyTextUrl}
                   >
-                    URL 복사
+                    코드 복사
                   </button>
                 </div>
                 <div className="w-full flex justify-center">
