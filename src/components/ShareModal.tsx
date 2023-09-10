@@ -14,8 +14,6 @@ type Props = {
   code: number;
 };
 
-const BASE_URL = 'http://localhost:3000/';
-
 const ShareModal: React.FC<Props> = ({ onClose, code }) => {
   const copyRef = useRef<HTMLInputElement>(null);
 
@@ -37,9 +35,9 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
 
   const sliceText = () => {
     if (code.toString().length > 30) {
-      return BASE_URL + code.toString().slice(0, 29) + '...';
+      return code.toString().slice(0, 29) + '...';
     } else {
-      return BASE_URL + code.toString();
+      return code.toString();
     }
   };
 
