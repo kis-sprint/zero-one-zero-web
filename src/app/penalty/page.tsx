@@ -1,14 +1,22 @@
+'use client';
+import axios from 'axios';
 import html2canvas from 'html2canvas';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-interface propsType {
-  name: string;
-}
-
-export default function Penalty({ name }: propsType) {
+export default function Penalty() {
   const captureRef = useRef<HTMLDivElement>(null);
-  const date = new Date().toLocaleDateString();
+  const [date, setDate] = useState<string>();
+  const [name, setName] = useState<string>();
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString());
+    const getData = async () => {
+      //const { data } = await axios.get('url');
+      //setName(data.name);
+    };
+    getData();
+  }, []);
+
   const handleCapture = () => {
     if (captureRef.current) {
       html2canvas(captureRef.current).then((canvas) => {
@@ -29,7 +37,7 @@ export default function Penalty({ name }: propsType) {
     }
   };
   return (
-    <div className="relative h-screen">
+    <div className=" relative w-screen flex justify-center h-screen flex-col items-center">
       <div
         className="bg-black flex justify-center mt-4 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
         style={{ top: '7%' }}
@@ -39,7 +47,7 @@ export default function Penalty({ name }: propsType) {
         </button>
       </div>
       <div ref={captureRef} className="w-1/2 mx-auto border-black border relative h-screen">
-        <Image fill className="w-full align-middle" src="/image/appointment.png" alt="Your description" />
+        <Image fill sizes={'100'} className="w-full align-middle" src="/image/appointment.png" alt="Your description" />
         <div
           className="text-black p-10 text-center absolute  left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           style={{ top: '40%' }}
