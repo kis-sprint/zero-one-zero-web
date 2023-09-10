@@ -1,0 +1,128 @@
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+
+type Data = {
+  url?: string;
+  text?: string;
+  title?: string;
+  files?: File[];
+};
+
+type Props = {
+  onClose: () => void;
+  code: number;
+};
+
+const BASE_URL = 'http://localhost:3000/';
+
+const ShareModal: React.FC<Props> = ({ onClose, code }) => {
+  const copyLinkRef = useRef<HTMLInputElement>(null);
+  const [url, setUrl] = useState<string>('');
+
+  useEffect(() => {
+    setUrl(BASE_URL + code.toString());
+  }, []);
+
+  const shareHandler = async () => {
+    const data: Data = {
+      title: '공일공 - 투표를 공유합니다',
+      text: '공일공 - 투표를 공유합니다',
+      url: url,
+    };
+
+    if (navigator.share) {
+      navigator
+        .share(data)
+        .then(() => console.log('공유 성공'))
+        .catch((error) => console.log('공유 실패', error));
+    } else {
+      alert('공유하기가 지원되지 않는 환경입니다.');
+    }
+  };
+
+  const sliceText = () => {
+    if (url.length > 30) {
+      return url.slice(0, 29) + '...';
+    } else {
+      return url;
+    }
+  };
+
+  const copyTextUrl = () => {
+    if (copyLinkRef.current) {
+      copyLinkRef.current.focus();
+      copyLinkRef.current.select();
+
+      navigator.clipboard.writeText(copyLinkRef.current.value).then(() => {
+        alert('링크를 복사했습니다.');
+      });
+    }
+  };
+
+  return (
+    <Transition.Root show={true} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-700 opacity-30 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-100 text-left shadow-xl transition-all sm:my-8 sm:max-w-lg w-[330px] h-[180px]">
+                <div className="w-full flex justify-end pt-3 pr-3">
+                  <XMarkIcon className="w-6 cursor-pointer" onClick={onClose} />
+                </div>
+                <div className="px-6 w-full mt-[-10px]">
+                  <div className="mt-3 sm:ml-4 sm:mt-0 text-center">
+                    <Dialog.Title className="text-xl font-semibold text-gray-900">공유하기</Dialog.Title>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div onClick={copyTextUrl}>
+                    <input
+                      className="w-full h-9 outline-none rounded-xl border-[1px] border-gray-300 bg-gray-100 p-2.5 flex justify-between text-xs text-blue-500 cursor-pointer"
+                      ref={copyLinkRef}
+                      value={sliceText()}
+                      readOnly
+                    />
+                  </div>
+                  <button
+                    className="absolute top-20 mt-[-2px] text-xs w-15 h-9 right-6 bg-gray-200 py-[9.3px] px-1 rounded-r-xl text-gray-500 border-[1px] border-gray-300 hover:bg-gray-300 hover:text-gray-600 outline-none"
+                    onClick={copyTextUrl}
+                  >
+                    URL 복사
+                  </button>
+                </div>
+                <div className="w-full flex justify-center">
+                  <button className="text-xs" onClick={shareHandler}>
+                    또는 바로 공유하기
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+};
+
+export default ShareModal;
