@@ -3,35 +3,22 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { Fragment, useState } from 'react';
 
 type Props = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  condition?: string; // edit, close
+  onSubmit: () => void;
+  onClose: () => void;
 };
 
-const CheckPasswordModal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) => {
+const CheckPasswordModal: React.FC<Props> = ({ onSubmit, onClose }) => {
   const [password, setPassword] = useState<string>('');
 
   const onEnter = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && password) {
-      submitHandler();
+      onSubmit();
     }
-  };
-
-  const submitHandler = () => {
-    switch (condition) {
-      case 'edit':
-        // console.log('to edit')
-        break;
-      case 'close':
-        // console.log('close!')
-        break;
-    }
-    alert('submit!');
   };
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setIsOpen}>
+    <Transition.Root show={true} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,7 +44,7 @@ const CheckPasswordModal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) =
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg w-[330px] h-[220px]">
                 <div className="w-full flex justify-end pt-3 pr-3">
-                  <XMarkIcon className="w-5 cursor-pointer" onClick={() => setIsOpen(false)} />
+                  <XMarkIcon className="w-5 cursor-pointer" onClick={onClose} />
                 </div>
                 <div className="mt-[-2px]">
                   <div className="bg-white px-6 pb-4 w-full">
@@ -68,7 +55,7 @@ const CheckPasswordModal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) =
                       </div>
                     </div>
                   </div>
-                  <div className="w-full flex flex-col items-center mt-1 px-10">
+                  <form className="w-full flex flex-col items-center mt-1 px-10" onSubmit={onSubmit}>
                     <input
                       className="h-10 w-full bg-red border-[1.5px] border-solid rounded text-sm p-2 outline-none"
                       type="password"
@@ -77,11 +64,11 @@ const CheckPasswordModal: React.FC<Props> = ({ isOpen, setIsOpen, condition }) =
                       onChange={(event) => setPassword(event.target.value)}
                     />
                     <div className="w-full flex justify-end mt-5 mr-[-10px]">
-                      <button onClick={submitHandler} className="bg-blue-500 px-6 py-1.5 rounded-sm text-white text-sm">
+                      <button type="submit" className="bg-blue-500 px-6 py-1.5 rounded-sm text-white text-sm">
                         확인
                       </button>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
