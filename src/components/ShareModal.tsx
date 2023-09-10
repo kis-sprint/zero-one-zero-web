@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import React, { Fragment, useRef } from 'react';
 
-type Data = {
+type ShareData = {
   url?: string;
   text?: string;
   title?: string;
@@ -18,7 +18,7 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
   const copyRef = useRef<HTMLInputElement>(null);
 
   const shareHandler = async () => {
-    const data: Data = {
+    const data: ShareData = {
       title: `공일공 - 투표를 공유합니다\n\n코드번호 : ${code.toString()}`,
       url: '',
     };
@@ -97,7 +97,7 @@ const ShareModal: React.FC<Props> = ({ onClose, code }) => {
                     />
                   </div>
                   <button
-                    className="absolute top-20 mt-[-2px] text-xs w-15 h-9 right-6 bg-gray-200 py-[9.3px] px-1 rounded-r-xl text-gray-500 border-[1px] border-gray-300 hover:bg-gray-300 hover:text-gray-600 outline-none"
+                    className="absolute top-20 mt-[-1.8px] text-xs w-15 h-9 right-6 bg-gray-200 py-[9.3px] px-1 rounded-r-xl text-gray-500 border-[1px] border-gray-300 hover:bg-gray-300 hover:text-gray-600 outline-none"
                     onClick={copyTextUrl}
                   >
                     코드 복사
