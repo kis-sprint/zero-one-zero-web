@@ -9,12 +9,12 @@ type ShareData = {
   files?: File[];
 };
 
-type ShareModal = {
+type ShareModalProps = {
   onClose: () => void;
   code: number;
 };
 
-export default function ShareModal({ onClose, code }: ShareModal) {
+export default function ShareModal({ onClose, code }: ShareModalProps) {
   const copyRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>('');
 
