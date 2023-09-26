@@ -9,7 +9,7 @@ type PenaltyProps = {
   nonParticipantList: string[];
 };
 
-export default function Penalty(props: PenaltyProps) {
+function Penalty(props: PenaltyProps) {
   const captureRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState<string>();
   const [selectedUserName, setSelectedUserName] = useState<string>(props.nonParticipantList[0]);
@@ -91,3 +91,5 @@ export default function Penalty(props: PenaltyProps) {
     </div>
   );
 }
+
+export default Penalty;
