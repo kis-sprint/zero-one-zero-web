@@ -22,6 +22,10 @@ export function RoomProvider({ children }: { children: React.ReactNode }) {
   const savedRoomId = 0;
   const savedNonVoteUserName = '';
 
+  // const savedRoomCode = JSON.parse(localStorage.getItem('roomCode')!);
+  // const savedRoomId = JSON.parse(localStorage.getItem('roomId')!);
+  // const savedNonVoteUserName = JSON.parse(localStorage.getItem('nonVoteUserName')!);
+
   const [roomCode, setRoomCode] = useState<string>(savedRoomCode);
   const [roomId, setRoomId] = useState<number>(savedRoomId);
   const [nonVoteUserName, setNonVoteUserName] = useState<string>(savedNonVoteUserName);
