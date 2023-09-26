@@ -1,13 +1,13 @@
 'use client';
 
 import { getVoteAPI, getVoteResultListAPI, VoteResultInfo } from '@/api';
+import Penalty from '@/components/Penalty';
 import VoteMenu from '@/components/VoteMenu';
 import VoteResultItem from '@/components/VoteResultItem';
 import { RoomContext } from '@/context/RoomContext';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
-import Penalty from '../penalty/page';
 
 type ParticipantInfo = {
   participantsName: string;
