@@ -77,7 +77,7 @@ export default function VoteResultPage() {
       </ul>
       {voteData?.overed ? (
         voteData.nonParticipantList.length === 0 ? null : (
-          <Penalty nonPartcipantList={voteData.nonParticipantList} />
+          <Penalty nonParticipantList={voteData.nonParticipantList} />
         )
       ) : (
         <VoteMenu />
