@@ -22,7 +22,7 @@
 | --- | --- | --- | --- |
 | [키유](https://github.com/hyunjoogo) | 진행자 | 일정 조율 및 개발 참여 | 페어 프로그래밍 네비게이터 |
 | 단지 | 기획 | 서비스 기획 |  |
-| [니노](https://github.com/lynnday36) | BE | 투표 프로세스 API 설계 및 작성 | 건의사항 수정 |
+| [니노](https://github.com/lynnday36) | BE | 투표 프로세스 API 설계 및 작성 | 건의사항 수정 및 서버  배포 |
 | [앨빈](https://github.com/choegyumin) | FE | 개발 최고 의사결정권 |
 | [제리](https://github.com/orgs/kis-sprint/people/chuhoon) | FE | UI 최고 의사결정권 |
 | [팡이](https://github.com/smosco) | FE | 투표 코드 입장, 참가자 선택 | API 연결, 배포, 리드미 작성 |
